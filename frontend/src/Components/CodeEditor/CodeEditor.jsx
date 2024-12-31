@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Editor } from "@monaco-editor/react";
 import axios from "axios";
 import "./CodeEditor.css";
@@ -11,6 +11,21 @@ function CodeEditor() {
   const [executionTime, setExecutionTime] = useState(null);
   const [memoryUsed, setMemoryUsed] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+
+  useEffect(() => {
+    const handleKeyDown = (event) => {
+      if (event.ctrlKey && event.shiftKey && event.key.toLowerCase() === "x") {
+        event.preventDefault();
+        executeCode();
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+
+    // Cleanup to prevent multiple listeners
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   // Language options
   const languageMap = {
@@ -46,31 +61,28 @@ function CodeEditor() {
       const response = await axios.post("https://emkc.org/api/v2/piston/execute", {
         language,
         version: "*",
-        files: [{ name: `main.${language === "cpp" || language === "c" ? "cpp" : language === "python" ? "py" : "js"}`, content: value }],
+        files: [
+          {
+            name: `main.${language === "cpp" || language === "c" ? "cpp" : language === "python" ? "py" : "js"}`,
+            content: value,
+          },
+        ],
         stdin: userInput,
       });
 
       if (response.data && response.data.run) {
-        setOutput(response.data.run.stdout || response.data.run.stderr || "No output.");
-        setExecutionTime(response.data.run.time || "N/A");
-        setMemoryUsed(response.data.run.memory || "N/A");
+        const { stdout, stderr, time, memory } = response.data.run;
+        setOutput(stdout || stderr || "No output.");
+        setExecutionTime(time || "N/A");
+        setMemoryUsed(memory || "N/A");
       } else {
         setOutput("No output received from the server.");
         setExecutionTime("N/A");
         setMemoryUsed("N/A");
       }
     } catch (error) {
-      if (error.response && error.response.data) {
-        if (error.response.data.error) {
-          setOutput(`Error: ${error.response.data.error}`);
-        } else if (error.response.data.run) {
-          setOutput(`Execution Error: ${error.response.data.run.stderr}`);
-        } else {
-          setOutput("Unknown error occurred.");
-        }
-      } else {
-        setOutput(`Error: ${error.message}`);
-      }
+      const errorMessage = error.response?.data?.error || error.message || "Unknown error occurred.";
+      setOutput(`Error: ${errorMessage}`);
       setExecutionTime("N/A");
       setMemoryUsed("N/A");
     } finally {
@@ -122,8 +134,12 @@ function CodeEditor() {
       <div className="output">
         <h3>Output:</h3>
         <pre>{output}</pre>
-        <p><strong>Execution Time:</strong> {executionTime} seconds</p>
-        <p><strong>Memory Used:</strong> {memoryUsed} KB</p>
+        <p>
+          <strong>Execution Time:</strong> {executionTime} seconds
+        </p>
+        <p>
+          <strong>Memory Used:</strong> {memoryUsed} KB
+        </p>
       </div>
     </div>
   );

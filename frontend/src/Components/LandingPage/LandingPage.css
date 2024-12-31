@@ -1,0 +1,92 @@
+.LandingPage-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 2rem;
+    background-color: #2c3e50;
+    color: white;
+}
+
+.LandingPage-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.LandingPage-nav a {
+    color: white;
+    text-decoration: none;
+    margin-left: 1rem;
+    font-size: 1rem;
+}
+
+.LandingPage-nav a:hover {
+    text-decoration: underline;
+}
+
+.LandingPage-hero {
+    text-align: center;
+    padding: 4rem 2rem;
+    background-color: #34495e;
+    color: white;
+}
+
+.LandingPage-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+
+.LandingPage-hero p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+
+.LandingPage-cta-button {
+    background-color: #e67e22;
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.LandingPage-cta-button:hover {
+    background-color: #d35400;
+}
+
+.LandingPage-section {
+    padding: 2rem;
+    text-align: center;
+}
+
+.LandingPage-section h2 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+}
+
+.LandingPage-section p {
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+}
+
+.LandingPage-learn-more {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 0.6rem 1.2rem;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.LandingPage-learn-more:hover {
+    background-color: #2980b9;
+}
+
+.LandingPage-footer {
+    text-align: center;
+    padding: 1rem;
+    background-color: #2c3e50;
+    color: white;
+    font-size: 0.9rem;
+}
