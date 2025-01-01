@@ -1,0 +1,37 @@
+/* General styles for the Navbar */
+.Navbar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #121212; /* Dark background */
+    padding: 20px 40px;
+    border-bottom: 1px solid #333; /* Subtle border at the bottom */
+  }
+  
+  .Navbar-logo {
+    font-size: 24px;
+    color: #ffffff; /* Light text for contrast */
+    font-weight: bold;
+  }
+  
+  .Navbar-nav {
+    display: flex;
+    gap: 20px;
+  }
+  
+  .Navbar-link {
+    color: #ffffff; /* Light text */
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    transition: color 0.3s ease-in-out;
+  }
+  
+  .Navbar-link:hover {
+    color: #03dac6; /* Accent color on hover */
+  }
+  
+  .Navbar-link:active {
+    color: #018786; /* Accent color on active state */
+  }
+  

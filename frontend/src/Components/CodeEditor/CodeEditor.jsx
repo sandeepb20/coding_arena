@@ -1,16 +1,19 @@
 import React, { useState, useEffect } from "react";
 import { Editor } from "@monaco-editor/react";
 import axios from "axios";
-import "./CodeEditor.css";
+import "./CodeEditor.css"; // CSS file reference remains as "CodeEditor.css"
+import Navbar from "../Navbar/Navbar"; // Updated import paths
+import Footer from "../Footer/Footer";   // Updated import paths
 
 function CodeEditor() {
   const [language, setLanguage] = useState("cpp");
-  const [value, setValue] = useState(getBoilerplate("cpp"));
-  const [userInput, setUserInput] = useState("");
+  const [code, setCode] = useState(getBoilerplate("cpp"));
+  const [input, setInput] = useState("");
   const [output, setOutput] = useState("");
   const [executionTime, setExecutionTime] = useState(null);
-  const [memoryUsed, setMemoryUsed] = useState(null);
-  const [isLoading, setIsLoading] = useState(false);
+  const [memoryUsage, setMemoryUsage] = useState(null);
+  const [isExecuting, setIsExecuting] = useState(false);
+  const [showNotification, setShowNotification] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (event) => {
@@ -27,7 +30,7 @@ function CodeEditor() {
     };
   }, []);
 
-  // Language options
+  // Language options mapping
   const languageMap = {
     c: "C",
     cpp: "C++",
@@ -52,10 +55,10 @@ function CodeEditor() {
   }
 
   const executeCode = async () => {
-    setIsLoading(true);
+    setIsExecuting(true);
     setOutput("");
     setExecutionTime(null);
-    setMemoryUsed(null);
+    setMemoryUsage(null);
 
     try {
       const response = await axios.post("https://emkc.org/api/v2/piston/execute", {
@@ -64,43 +67,54 @@ function CodeEditor() {
         files: [
           {
             name: `main.${language === "cpp" || language === "c" ? "cpp" : language === "python" ? "py" : "js"}`,
-            content: value,
+            content: code,
           },
         ],
-        stdin: userInput,
+        stdin: input,
       });
 
       if (response.data && response.data.run) {
         const { stdout, stderr, time, memory } = response.data.run;
         setOutput(stdout || stderr || "No output.");
         setExecutionTime(time || "N/A");
-        setMemoryUsed(memory || "N/A");
+        setMemoryUsage(memory || "N/A");
       } else {
         setOutput("No output received from the server.");
         setExecutionTime("N/A");
-        setMemoryUsed("N/A");
+        setMemoryUsage("N/A");
       }
     } catch (error) {
       const errorMessage = error.response?.data?.error || error.message || "Unknown error occurred.";
       setOutput(`Error: ${errorMessage}`);
       setExecutionTime("N/A");
-      setMemoryUsed("N/A");
+      setMemoryUsage("N/A");
     } finally {
-      setIsLoading(false);
+      setIsExecuting(false);
     }
   };
 
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(
+      () => {
+        setShowNotification(true);
+        setTimeout(() => setShowNotification(false), 2000); // Show notification for 2 seconds
+      },
+      () => alert("Failed to copy to clipboard.")
+    );
+  };
+
   return (
-    <div className="code-editor-container">
-      <div className="header">
+    <div className="CodeEditor-container">
+      <Navbar />
+      <header className="CodeEditor-header">
         <h1>Code Editor</h1>
-        <div className="controls">
+        <div className="CodeEditor-controls">
           <select
             value={language}
             onChange={(e) => {
               const selectedLang = e.target.value;
               setLanguage(selectedLang);
-              setValue(getBoilerplate(selectedLang)); // Change boilerplate immediately
+              setCode(getBoilerplate(selectedLang)); // Set boilerplate for selected language
             }}
           >
             {Object.keys(languageMap).map((lang) => (
@@ -109,17 +123,17 @@ function CodeEditor() {
               </option>
             ))}
           </select>
-          <button onClick={executeCode} disabled={isLoading}>
-            {isLoading ? "Running..." : "Run Code"}
+          <button onClick={executeCode} disabled={isExecuting}>
+            {isExecuting ? "Running..." : "Run Code"}
           </button>
         </div>
-      </div>
+      </header>
       <Editor
         theme="vs-dark"
         height="60vh"
         language={language === "python" ? "python" : language === "javascript" ? "javascript" : "cpp"}
-        value={value}
-        onChange={(newValue) => setValue(newValue || "")}
+        value={code}
+        onChange={(newValue) => setCode(newValue || "")}
         options={{
           fontSize: 14,
           minimap: { enabled: false },
@@ -127,20 +141,32 @@ function CodeEditor() {
       />
       <textarea
         placeholder="Input (if required)"
-        value={userInput}
-        onChange={(e) => setUserInput(e.target.value)}
-        className="user-input"
+        value={input}
+        onChange={(e) => setInput(e.target.value)}
+        className="CodeEditor-user-input"
       />
-      <div className="output">
+      <div className="CodeEditor-controls">
+        <button onClick={() => copyToClipboard(input)} disabled={!input}>
+          Copy Input
+        </button>
+        <button onClick={() => copyToClipboard(output)} disabled={!output}>
+          Copy Output
+        </button>
+      </div>
+      <div className={`CodeEditor-notification ${showNotification ? "visible" : ""}`}>
+        Copied to clipboard!
+      </div>
+      <div className="CodeEditor-output">
         <h3>Output:</h3>
         <pre>{output}</pre>
         <p>
           <strong>Execution Time:</strong> {executionTime} seconds
         </p>
         <p>
-          <strong>Memory Used:</strong> {memoryUsed} KB
+          <strong>Memory Usage:</strong> {memoryUsage} KB
         </p>
       </div>
+      <Footer />
     </div>
   );
 }
