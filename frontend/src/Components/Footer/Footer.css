@@ -1,0 +1,10 @@
+/* General styles for the Footer */
+.Footer-container {
+    background-color: #121212; /* Dark background for consistency */
+    color: #bbb; /* Light text color for contrast */
+    padding: 20px;
+    text-align: center;
+    font-size: 14px;
+    border-top: 1px solid #333; /* Subtle border at the top */
+  }
+  

@@ -1,0 +1,88 @@
+/* General container styling for the Landing Page */
+.LandingPage-container {
+    font-family: 'Arial', sans-serif;
+    padding: 20px;
+    background-color: #121212; /* Dark background */
+    color: white; /* Text color */
+  }
+  
+  /* Hero section styles */
+  .LandingPage-hero {
+    text-align: center;
+    background-color: #1a1a1a; /* Darker background */
+    color: white; /* Text color */
+    padding: 50px;
+    border-radius: 10px;
+  }
+  
+  .LandingPage-hero h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+  }
+  
+  .LandingPage-hero p {
+    font-size: 1.2rem;
+    margin-bottom: 30px;
+  }
+  
+  .LandingPage-cta-button {
+    background-color: #007bff; /* Button background */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .LandingPage-cta-button:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Section styling */
+  .LandingPage-section {
+    background-color: #1f1f1f; /* Dark background */
+    padding: 40px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(255, 255, 255, 0.1); /* Light shadow for contrast */
+  }
+  
+  .LandingPage-section h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+  }
+  
+  .LandingPage-section p {
+    font-size: 1rem;
+    margin-bottom: 20px;
+  }
+  
+  .LandingPage-learn-more {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .LandingPage-learn-more:hover {
+    background-color: #0056b3;
+  }
+  
+  /* Footer styling */
+  .LandingPage-footer {
+    text-align: center;
+    padding: 20px;
+    background-color: #1a1a1a;
+    color: white;
+    margin-top: 20px;
+    border-radius: 5px;
+  }
+  
+  .LandingPage-footer p {
+    margin: 0;
+  }
+  

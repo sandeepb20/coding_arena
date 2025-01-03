@@ -1,0 +1,102 @@
+.CodeEditor-container {
+  font-family: 'Courier New', Courier, monospace;
+  background-color: #1e1e1e;
+  color: white;
+  padding: 20px;
+}
+
+.CodeEditor-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.CodeEditor-header h1 {
+  margin: 0;
+}
+
+.CodeEditor-controls {
+  display: flex;
+  gap: 10px;
+}
+
+.CodeEditor-controls select, 
+.CodeEditor-controls button {
+  padding: 10px;
+  border: 1px solid #555;
+  background-color: #2d2d2d;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+
+.CodeEditor-controls select:focus, 
+.CodeEditor-controls button:focus {
+  outline: none;
+  box-shadow: 0 0 8px rgba(0, 120, 255, 0.6);
+}
+
+.CodeEditor-editor {
+  margin-bottom: 20px;
+}
+
+.CodeEditor-user-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #555;
+  background-color: #2d2d2d;
+  color: white;
+  border-radius: 4px;
+  margin-bottom: 20px;
+}
+
+.CodeEditor-output {
+  background-color: #282828;
+  padding: 15px;
+  border-radius: 4px;
+  border: 1px solid #555;
+}
+
+.CodeEditor-output h3 {
+  margin-top: 0;
+}
+
+.CodeEditor-output pre {
+  margin: 0;
+  font-family: 'Courier New', Courier, monospace;
+  white-space: pre-wrap;
+}
+
+.CodeEditor-output p {
+  margin: 5px 0;
+}
+
+.CodeEditor-footer {
+  margin-top: 20px;
+  border-top: 1px solid #555;
+  padding-top: 10px;
+  text-align: center;
+}
+
+.CodeEditor-footer p {
+  margin: 0;
+}
+
+.CodeEditor-notification {
+  display: none;
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border-radius: 4px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.CodeEditor-notification.visible {
+  display: block;
+  opacity: 1;
+}
