@@ -1,0 +1,63 @@
+.Welcome-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    background-color: #333;
+    color: #f5f5f5;
+    text-align: center;
+}
+
+.Welcome-title {
+    font-size: 36px;
+    color: #f5f5f5;
+    margin-bottom: 20px;
+}
+
+.Welcome-user {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.Welcome-avatar {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.Welcome-username {
+    font-size: 24px;
+    color: #f5f5f5;
+    margin-bottom: 5px;
+}
+
+.Welcome-email {
+    font-size: 16px;
+    color: #bbb;
+}
+
+.Welcome-message {
+    font-size: 20px;
+    color: #ccc;
+    margin-top: 20px;
+}
+
+.Welcome-logout-button {
+    padding: 10px 20px;
+    background-color: #ff5252;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 20px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.Welcome-logout-button:hover {
+    background-color: #ff1744;
+}
